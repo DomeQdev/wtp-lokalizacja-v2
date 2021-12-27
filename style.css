@@ -1,0 +1,103 @@
+html {
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    font-family: droid-sans, sans-serif;
+}
+  
+.leaflet-control-attribution {
+    display: none;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    float: right;
+    z-index: 0;
+    z-index: 0;
+}
+
+
+#modal_open {
+    font-size: 25px;
+    padding: 1px;
+    color: #333;
+    position: fixed;
+    top: 10px;
+    right: 2%;
+    z-index: 1;
+    width: 29px;
+    height: 29px;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 9px 5px rgba(0,0,0,0.21);
+    -moz-box-shadow: 1px 2px 9px 5px rgba(0,0,0,0.21);
+    box-shadow: 1px 2px 9px 5px rgba(0,0,0,0.21);
+}
+
+.line-number{margin:0 auto;display:block;font-size:15px;font-weight:700}
+.vehicle-marker{background-color:#fff;box-shadow:1px 4px 7px #8a8a8a;position:relative;border-radius:15px;display:flex;outline:none;align-items:center;padding:0 6px!important;z-index:1000!important;}
+.bus{color:#006b47!important;border:2px solid #006b47!important;}
+.tram{color:#007bff!important;border:2px solid #007bff!important;}
+
+.leaflet-marker-pane > * {
+    -webkit-transition: transform .3s linear;
+    -moz-transition: transform .3s linear;
+    -o-transition: transform .3s linear;
+    -ms-transition: transform .3s linear;
+    transition: transform .3s linear;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  small {
+    font-size: 12px;
+  }
+
+  label {
+    pointer-events: none;
+  }
