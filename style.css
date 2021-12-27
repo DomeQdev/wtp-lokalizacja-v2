@@ -97,7 +97,3 @@ body {
 small {
   font-size: 12px;
 }
-
-label {
-  pointer-events: none;
-}

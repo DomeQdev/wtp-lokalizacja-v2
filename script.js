@@ -4,7 +4,6 @@ var sorting = {
     type: "all",
     data: null 
 }
-var enableBrygady = true;
 var map = new L.Map("map").setView(localStorage.bounds?.split(",") || [52.22983095298667, 21.0117354814593], localStorage.zoom || 15);
 var markers = L.layerGroup().addTo(map);
 
@@ -31,10 +30,10 @@ getData().then(info => info.map(x => L.marker([x.x, x.y], {
     })
 }).addTo(markers).on('click', onMarkerClick)));
 
-const renderHTML = (x) => `<span class="vehicle-marker ${x.type}">${Date.now() - x.lastFetch > 60000 ? `<i class="fas fa-exclamation-triangle" style="color: #ff0000"></i>` : (x.deg ? `<i class="fas fa-arrow-up" style="transform: rotate(${x.deg}deg)"></i>` : '<i class="fas fa-circle"></i>')}&nbsp;<b class="line-number">${x.line}</b>${enableBrygady ? `<small>/${x.brigade}</small>` : ''}</span>`
+const renderHTML = (x) => `<span class="vehicle-marker ${x.type}">${Date.now() - x.lastFetch > 60000 ? `<i class="fas fa-exclamation-triangle" style="color: #ff0000"></i>` : (x.deg ? `<i class="fas fa-arrow-up" style="transform: rotate(${x.deg}deg)"></i>` : '<i class="fas fa-circle"></i>')}&nbsp;<b class="line-number">${x.line}</b>${localStorage.brygady === "1" ? `<small>/${x.brigade}</small>` : ''}</span>`
 const renderSize = (x) => {
     let size = 50;
-    if(enableBrygady) size += x.brigade.length * 4.2;
+    if(localStorage.brygady === "1") size += x.brigade.length * 4.2;
     if(x.line.length === 1) size -= 5;
     if(Date.now() - x.lastFetch > 60000) size += 7;
     size += x.line.length * 4;
@@ -75,7 +74,6 @@ setInterval(async() => {
             })
         }).addTo(markers).on('click', onMarkerClick)
     });
-
 }, 10000);
 
 function _fetch(url) {
@@ -129,6 +127,6 @@ async function onMarkerClick() {
     if(data.airConditioning === "1") features.push("Klimatyzacja");
     if(data.usbChargers === "1") features.push("Wejścia USB");
     if(data.ticketMachine === "1") features.push("Biletomat");    
-    this.bindPopup(`<p style="font-size: 15px;"><i class="fas fa-${type === "bus" ? "bus" : "train"}" style="color:#${type === "bus" ? "006b47" : "007bff"}"></i> <b>${data.tab}</b> ${data.description ? data.description : type === "bus" ? "Autobus" : "Tramwaj"}</p>${this._icon?.innerHTML?.includes("fa-exclamation-triangle") ? `<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i> <b>Ten pojazd ma problemy.</b><br>` : ""}<i class="fas fa-car-side"></i> <b>${data.brand}</b> ${data.model} (${data.prodYear})<br><i class="fas fa-warehouse"></i> <b>${data.operator}</b>${data.depot ? ` (${data.depot})` : ""}<br>${features.join(', ')}`)
+    this.bindPopup(`<p style="font-size: 15px;"><i class="fas fa-${type === "bus" ? "bus" : "train"}" style="color:#${type === "bus" ? "006b47" : "007bff"}"></i> <b>${tab}</b> ${data.description ? data.description : type === "bus" ? "Autobus" : "Tramwaj"}</p>${this._icon?.innerHTML?.includes("fa-exclamation-triangle") ? `<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i> <b>Ten pojazd ma problemy.</b><br>` : ""}<i class="fas fa-car-side"></i> <b>${data.brand}</b> ${data.model} (${data.prodYear})<br><i class="fas fa-warehouse"></i> <b>${data.operator}</b>${data.depot ? ` (${data.depot})` : ""}<br>${features.join(', ')}`)
     this.openPopup();
 }

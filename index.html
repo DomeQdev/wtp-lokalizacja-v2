@@ -23,18 +23,21 @@
             <h2>Ustawienia (soon)</h2>
 
             <label><input type="radio" name="select_type" checked onchange="ustawienia(1)"> Pokaż wszystkie pojazdy</label><br>
-            <label><input type="radio" name="select_type" onchange="ustawienia(2)"> Pokaż wybrane linie</label><br>
+            <!--<label><input type="radio" name="select_type" onchange="ustawienia(2)"> Pokaż wybrane linie</label><br>
             <label><input type="radio" name="select_type" onchange="ustawienia(3)"> Pokaż wybrany typ pojazdu</label><br>
             <label><input type="radio" name="select_type" onchange="ustawienia(4)"> Pokaż pojazdy z wybraną brygadą</label><br>
-            <label><input type="radio" name="select_type" onchange="ustawienia(5)"> Pokaż wybrany pojazd</label><br>
+            <label><input type="radio" name="select_type" onchange="ustawienia(5)"> Pokaż wybrany pojazd</label><br>--->
             <br>
             <div id="ustawienia"></div>
+
+            <label><input type="checkbox" id="bryg" onclick="localStorage.setItem('brygady', this.checked ? '1' : '0')"> Włącz brygady</label>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>  
     <script src="./script.js"></script>
     <script>
+        if(localStorage.brygady === "1") $("#bryg").prop("checked", true);
         async function ustawienia(type) {
             switch(type) {
                 case 1:
