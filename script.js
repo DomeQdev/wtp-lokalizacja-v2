@@ -5,7 +5,7 @@ var sorting = {
     data: null 
 }
 var enableBrygady = true;
-var map = new L.Map("map").setView(localStorage.bounds.split(",") || [52.22983095298667, 21.0117354814593], localStorage.zoom || 15);
+var map = new L.Map("map").setView(localStorage.bounds?.split(",") || [52.22983095298667, 21.0117354814593], localStorage.zoom || 15);
 var markers = L.layerGroup().addTo(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
