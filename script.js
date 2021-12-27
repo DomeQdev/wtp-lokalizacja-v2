@@ -31,11 +31,12 @@ getData().then(info => info.map(x => L.marker([x.x, x.y], {
     })
 }).addTo(markers).on('click', onMarkerClick)));
 
-const renderHTML = (x) => `<span class="vehicle-marker ${x.type}">${x.deg ? `<i class="fas fa-arrow-up" style="transform: rotate(${x.deg}deg)"></i>` : '<i class="fas fa-circle"></i>'}&nbsp;<b class="line-number">${x.line}</b>${enableBrygady ? `<small>/${x.brigade}</small>` : ''}</span>`
+const renderHTML = (x) => `<span class="vehicle-marker ${x.type}">${Date.now() - x.lastFetch > 60000 ? `<i class="fas fa-exclamation-triangle" style="color: #ff0000"></i>` : (x.deg ? `<i class="fas fa-arrow-up" style="transform: rotate(${x.deg}deg)"></i>` : '<i class="fas fa-circle"></i>')}&nbsp;<b class="line-number">${x.line}</b>${enableBrygady ? `<small>/${x.brigade}</small>` : ''}</span>`
 const renderSize = (x) => {
     let size = 50;
     if(enableBrygady) size += x.brigade.length * 4.2;
     if(x.line.length === 1) size -= 5;
+    if(Date.now() - x.lastFetch > 60000) size += 7;
     size += x.line.length * 4;
     return size;
 }
@@ -122,12 +123,12 @@ async function onMarkerClick() {
     map.setView(this.getLatLng(), 17);
 
     let data = await _fetch(`realbus.pl/mapa/vehicle_info.php?tab=${tab}&type=${type}&info_type=json`);
-    if(!data || data.problem) return this.bindPopup(`<p style="font-size: 15px;"><i class="fas fa-${type === "bus" ? "bus" : "train"}" style="color:#${type === "bus" ? "006b47" : "007bff"}"></i> <b>${tab}</b> ${type === "bus" ? "Autobus" : "Tramwaj"}</p><b>Błąd!</b> Dane nie są dostępne.`).openPopup();
+    if(!data || data.problem) return this.bindPopup(`<p style="font-size: 15px;"><i class="fas fa-${type === "bus" ? "bus" : "train"}" style="color:#${type === "bus" ? "006b47" : "007bff"}"></i> <b>${tab}</b> ${type === "bus" ? "Autobus" : "Tramwaj"}</p>${this._icon?.innerHTML?.includes("fa-exclamation-triangle") ? `<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i> <b>Ten pojazd ma problemy.</b><br>` : ""}<b>Błąd!</b> Dane nie są dostępne.`).openPopup();
     let features = [];
     if(data.lowFloor === "1") features.push("Nieskopodłogowy");
     if(data.airConditioning === "1") features.push("Klimatyzacja");
     if(data.usbChargers === "1") features.push("Wejścia USB");
     if(data.ticketMachine === "1") features.push("Biletomat");    
-    this.bindPopup(`<p style="font-size: 15px;"><i class="fas fa-${type === "bus" ? "bus" : "train"}" style="color:#${type === "bus" ? "006b47" : "007bff"}"></i> <b>${data.tab}</b> ${data.description ? data.description : type === "bus" ? "Autobus" : "Tramwaj"}</p><i class="fas fa-car-side"></i> <b>${data.brand}</b> ${data.model} (${data.prodYear})<br><i class="fas fa-warehouse"></i> <b>${data.operator}</b>${data.depot ? ` (${data.depot})` : ""}<br>${features.join(', ')}`)
+    this.bindPopup(`<p style="font-size: 15px;"><i class="fas fa-${type === "bus" ? "bus" : "train"}" style="color:#${type === "bus" ? "006b47" : "007bff"}"></i> <b>${data.tab}</b> ${data.description ? data.description : type === "bus" ? "Autobus" : "Tramwaj"}</p>${this._icon?.innerHTML?.includes("fa-exclamation-triangle") ? `<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i> <b>Ten pojazd ma problemy.</b><br>` : ""}<i class="fas fa-car-side"></i> <b>${data.brand}</b> ${data.model} (${data.prodYear})<br><i class="fas fa-warehouse"></i> <b>${data.operator}</b>${data.depot ? ` (${data.depot})` : ""}<br>${features.join(', ')}`)
     this.openPopup();
 }
