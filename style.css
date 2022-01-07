@@ -45,15 +45,48 @@ body {
 
 .line-number{margin:0 auto;display:block;font-size:15px;font-weight:700}
 .vehicle-marker{background-color:#fff;box-shadow:1px 4px 7px #8a8a8a;position:relative;border-radius:15px;display:flex;outline:none;align-items:center;padding:0 6px!important;z-index:1000!important;}
+
 .bus{color:#006b47!important;border:2px solid #006b47!important;}
+.bus:hover{color:#fff!important;background-color:#006b47!important;border:2px solid #fff!important;}
+
 .tram{color:#007bff!important;border:2px solid #007bff!important;}
+.tram:hover{color:#fff!important;background-color:#007bff!important;border:2px solid #fff!important;}
+
+.blocked{cursor: not-allowed!important;background-color: #f5cccc!important;}
+.blocked:hover{background-color: #e65e5e!important;}
+
+.bg-bus{background-color:#006b47!important;color: #fff!important;}
+.bg-bus:hover{background-color:#fff!important;color:#006b47!important;border:2px solid #006b47!important;}
+
+.bg-bus-request{background-color:#fff!important;color: #006b47!important;border:2px solid #006b47!important;}
+.bg-bus-request:hover{background-color:#006b47!important;color:#fff!important;}
+
+.bg-tram{background-color:#007bff!important;color: #fff!important;}
+.bg-tram:hover{background-color:#fff!important;color:#007bff!important;border:2px solid #007bff!important;}
+
+.bg-tram-request{background-color:#fff!important;color: #007bff!important;border:2px solid #007bff!important;}
+.bg-tram-request:hover{background-color:#007bff!important;color:#fff!important;}
 
 .leaflet-marker-pane > * {
-  -webkit-transition: transform .3s linear;
-  -moz-transition: transform .3s linear;
-  -o-transition: transform .3s linear;
-  -ms-transition: transform .3s linear;
-  transition: transform .3s linear;
+  -webkit-transition: transform 0.3s linear;
+  -moz-transition: transform 0.3s linear;
+  -o-transition: transform 0.3 linear;
+  -ms-transition: transform 0.3s linear;
+  transition: transform 0.3s linear;
+}
+
+.stop_marker {
+  width: 18px;
+  z-index: 500!important;
+  border: 0;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  outline: none;
+  border-radius: 18px;
+  height: 18px;
 }
 
 .modal {
