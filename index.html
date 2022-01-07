@@ -15,83 +15,9 @@
 </head>
 <body>
     <div id="map"></div>
-    <div id="modal_open"><i class="fas fa-cog"></i></div>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span id="modal_close" class="close">&times;</span>
-            <h2>Ustawienia (soon)</h2>
-
-            <label><input type="radio" name="select_type" checked onchange="ustawienia(1)"> Pokaż wszystkie pojazdy</label><br>
-            <!--<label><input type="radio" name="select_type" onchange="ustawienia(2)"> Pokaż wybrane linie</label><br>
-            <label><input type="radio" name="select_type" onchange="ustawienia(3)"> Pokaż wybrany typ pojazdu</label><br>
-            <label><input type="radio" name="select_type" onchange="ustawienia(4)"> Pokaż pojazdy z wybraną brygadą</label><br>
-            <label><input type="radio" name="select_type" onchange="ustawienia(5)"> Pokaż wybrany pojazd</label><br>--->
-            <br>
-            <div id="ustawienia"></div>
-
-            <label><input type="checkbox" id="bryg" onclick="localStorage.setItem('brygady', this.checked ? '1' : '0')"> Włącz brygady</label>
-        </div>
-    </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>  
     <script src="./script.js"></script>
-    <script>
-        if(localStorage.brygady === "1") $("#bryg").prop("checked", true);
-        async function ustawienia(type) {
-            switch(type) {
-                case 1:
-                    $('#ustawienia').html('');
-                    localStorage.setItem("sorting", JSON.stringify({
-                        "type": "all"
-                    }));
-                    break;
-                case 2:
-                    $("#ustawienia").html(`<span>Podaj linie, oddzielając je przecinkiem: <input type="text" onchange='ust2(this.value.replaceAll(" ", "").split(","))' placeholder="1,2,140,240,L-1,L40,E-2"></span>`);
-                    break;
-                case 3:
-                    localStorage.setItem("sorting", JSON.stringify({
-                        type: "type",
-                        data: "bus"
-                    }));
-                    $("#ustawienia").html(`<span>Wybierz rodzaj pojazdu <select onchange="ust3(this.value)"><option value="bus">🚍 Autobus</option><option value="tram">🚊 Tramwaj</option></select></span>`);
-                    break;
-                case 4:
-                    $("#ustawienia").html(`<span>Podaj brygadę: <input type="text" onchange="ust4(this.value)" placeholder="011"></span>`);
-                    break;
-                case 5:
-                    $("#ustawienia").html(`<span>Podaj numer pojazdu (TAB): <input type="text" onchange="ust2(this.value)" placeholder="1324+1325"></span>`);
-                    break;
-            }
-        }
-
-        function ust2(data) {
-            localStorage.setItem("sorting", JSON.stringify({
-                "type": "wybrane",
-                "data": data
-            }));
-        }
-
-        function ust3(data) {
-            localStorage.setItem("sorting", JSON.stringify({
-                "type": "type",
-                "data": data
-            }));
-        }
-
-        function ust4(data) {
-            localStorage.setItem("sorting", JSON.stringify({
-                "type": "brygada",
-                "data": data
-            }));
-        }
-
-        function ust5(data) {
-            localStorage.setItem("sorting", JSON.stringify({
-                "type": "pojazd",
-                "data": data
-            }));
-        }
-    </script>
 </body>
 </html>
