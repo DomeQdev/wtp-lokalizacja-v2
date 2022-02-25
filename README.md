@@ -1,1 +1,1 @@
-# wtp-lokalizacja-v2
+# check out DomeQdev/wtp-location instead
